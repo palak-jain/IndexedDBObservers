@@ -106,7 +106,7 @@ On completion of a transaction, observer fires a callback with the collected cha
 
 ## Construction 
 
-####                                 `new IDBObserver(callback, options)`
+####                                 		`new IDBObserver(callback, options)`
 
  **Callback**: 
 
@@ -116,7 +116,7 @@ On completion of a transaction, observer fires a callback with the collected cha
 
 ## Observe call
 
-		`IDBObserver.observe(database, transaction, ranges)`
+						`IDBObserver.observe(database, transaction, ranges)`
 
 * This function starts observation on the target database connection using the given transaction.  
 * We start observing the object storegit s that the given transaction is operating on (the object stores returned by IDBTransaction.objectStoreNames).  
@@ -136,7 +136,7 @@ For the purpose of explanation, the reference to ‘observer’ would represent 
 
 ## Addition
 
-#### observer.observe(db, tx)
+`observer.observe(db, tx)`
 
 ###Renderer
 
@@ -198,15 +198,15 @@ Each of the cases has a different entry point and covers a different set of obse
 
 1.  ReadOnly Transaction 
 
-Provide option to create a readonly transaction for the objectstores that you're observing every time the observer function is called. This transaction provides a snapshot of the post-commit state. This does not go through the normal transaction queue, but can delay subsequent transactions on the observer's object stores. The transaction is active during the callback, and becomes inactive at the end of the callback task or microtask.
+	Provide option to create a readonly transaction for the objectstores that you're observing every time the observer function is called. This transaction provides a snapshot of the post-commit state. This does not go through the normal transaction queue, but can delay subsequent transactions on the observer's object stores. The transaction is active during the callback, and becomes inactive at the end of the callback task or microtask.
 
 2. Filtering Algorithm
 
-Improve filtering mechanisms from current brute force implementation to an efficient algorithm/data structure like B+ trees.
+	Improve filtering mechanisms from current brute force implementation to an efficient algorithm/data structure like B+ trees.
 
 3. Culling[ ](https://github.com/WICG/indexed-db-observers/blob/gh-pages/EXPLAINER.md#culling)
 
-[https://github.com/WICG/indexed-db-observers/blob/gh-pages/EXPLAINER.md#culling](https://github.com/WICG/indexed-db-observers/blob/gh-pages/EXPLAINER.md#culling)
+	[https://github.com/WICG/indexed-db-observers/blob/gh-pages/EXPLAINER.md#culling](https://github.com/WICG/indexed-db-observers/blob/gh-pages/EXPLAINER.md#culling)
 
 # FAQs
 
@@ -245,13 +245,13 @@ Improve filtering mechanisms from current brute force implementation to an effic
 
 3. **Why do we need to have an associated transaction?**
 
-We always need a transaction before we start observing. This is for the user to know the initial state of the database. In other words, we need to guarantee the point after which all changes are recorded.
+	We always need a transaction before we start observing. This is for the user to know the initial state of the database. In other words, we need to guarantee the point after which all changes are recorded.
 
 4.  **Why not transaction.observe(..) or objStore.observe(..) ?**
 
 	This is to make our spec consistent with rest of observer models on web. The observe call’s lifetime is associated with the first argument of observe call i.e. the database.
 
-5.  **Why cannot we observe during version change? **
+5.  **Why cannot we observe during version change?**
 
 	Observer listens to a database. Listening during version change implies we will have to keep the database alive. During version change, we must close the db so as to modify it.
 
